@@ -1,7 +1,7 @@
 const ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 const teens = ['eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
 const tens = ['none', 'ten', 'twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
-const extensions = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion']
+const extensions = ['thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion']
 
 function chunkToWords(n) {
     let out = []
@@ -48,11 +48,10 @@ function numberToWords(number) {
         }
         chunks = chunks.filter(n => n != '')
 
-
         //process chunks
         wordChunks.push(chunkToWords(chunks[0]))
         for (let i = 1; i < chunks.length; i++) {
-            wordChunks.push(`${chunkToWords(chunks[i])} ${extensions[i]}`)
+            wordChunks.push(`${chunkToWords(chunks[i])} ${extensions[i - 1]}`)
         }
     }
 
