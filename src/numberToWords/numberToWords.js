@@ -3,35 +3,35 @@ const teens = ['eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
 const tens = ['none', 'ten', 'twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
 const extensions = ['', 'thousand', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion']
 
+function chunkToWords(n) {
+    let out = []
+
+    if (n >= 100) {
+        const hundreds = Math.floor(n / 100)
+        out.push(`${ones[hundreds]} hundred`)
+    }
+
+
+    const lastTwoDigits = n % 100
+
+    //fuck english
+    if (lastTwoDigits < 20 && lastTwoDigits > 10) {
+        out.push(teens[lastTwoDigits - 11])
+    } else {
+        if (lastTwoDigits >= 10) out.push(tens[Math.floor(lastTwoDigits / 10)])
+        const digit = lastTwoDigits % 10
+        if (digit != 0) out.push(ones[digit])
+    }
+
+    return out.join(' ');
+}
+
 /**
  * Convert a number to word form
  * @param {number} number - number to convert 
  * @returns {string} - Word form of inputted number
  */
 function numberToWords(number) {
-    function chunkToWords(n) {
-        let out = []
-
-        if (n >= 100) {
-            const hundreds = Math.floor(n / 100)
-            out.push(`${ones[hundreds]} hundred`)
-        }
-
-
-        const lastTwoDigits = n % 100
-
-        //fuck english
-        if (lastTwoDigits < 20 && lastTwoDigits > 10) {
-            out.push(teens[lastTwoDigits - 11])
-        } else {
-            if (lastTwoDigits >= 10) out.push(tens[Math.floor(lastTwoDigits / 10)])
-            const digit = lastTwoDigits % 10
-            if (digit != 0) out.push(ones[digit])
-        }
-
-        return out.join(' ');
-    }
-
     const stringForm = Math.abs(number).toString().split('.')
     //process head
     const head = stringForm[0]
